@@ -97,7 +97,13 @@ O diretório `.venv` não é versionado no Git.
 
 ## Como executar
 
-Clone o repositório e entre no diretório do projeto.
+## Execução no Windows 11
+
+### 1. Clonar o repositório
+
+```powershell
+git clone https://github.com/ricardo-paganini/projeto-01-automacao-relatorio-vendas.git
+cd projeto-01-automacao-relatorio-vendas
 
 Crie o ambiente virtual:
 

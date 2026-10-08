@@ -1,0 +1,21 @@
+﻿produto_id,produto,categoria,subcategoria,custo,preco_base
+PRD001,Notebook Pro 14,Informática,Notebooks,2800,4366.83
+PRD002,Notebook Essencial 15,Informática,Notebooks,2100,2993.66
+PRD003,Monitor 24 Full HD,Informática,Monitores,650,1035.74
+PRD004,Monitor 27 QHD,Informática,Monitores,1050,1605.39
+PRD005,Teclado Mecânico,Informática,Periféricos,280,360.55
+PRD006,Mouse Sem Fio,Informática,Periféricos,120,196.83
+PRD007,Headset Bluetooth,Informática,Áudio,220,341.98
+PRD008,Smartphone A,Eletronicos,Celulares,1450,2268.42
+PRD009,Smartphone B,Eletrônicos,Celulares,2200,2862.74
+PRD010,Tablet 10,Eletrônicos,Tablets,1150,1644.68
+PRD011,Smart TV 50,Eletrônicos,Televisores,2100,2936.47
+PRD012,Smart TV 65,Eletrônicos,Televisores,3400,5510.4
+PRD013,Impressora Multifuncional,Escritório,Impressoras,720,1085.43
+PRD014,Cadeira Escritório,Escritório,Móveis,850,1342.24
+PRD015,Mesa Escritório,Escritório,Móveis,1100,1570.1
+PRD016,Ar Condicionado 9000 BTU,Eletrodomésticos,Climatização,1750,2346.57
+PRD017,Aspirador Vertical,Eletrodomésticos,Limpeza,580,853.66
+PRD018,Cafeteira Automática,Eletrodomésticos,Cozinha,760,969.4
+PRD019,Forno Elétrico,Eletrodomésticos,Cozinha,690,1090.93
+PRD020,Air Fryer,Eletrodomésticos,Cozinha,430,646.15

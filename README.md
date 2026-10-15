@@ -132,28 +132,23 @@ Abra o Jupyter Notebook e execute `notebooks/projeto_01_analise_vendas.ipynb` ut
 - Criação e publicação do notebook principal.
 - Documentação da contextualização, do problema de negócio, dos objetivos e da metodologia.
 - Carregamento e inspeção inicial das fontes de dados.
-- Conclusão do diagnóstico da qualidade dos dados.
-- Identificação de valores ausentes, duplicidades, inconsistências e valores inválidos.
-- Tratamento das 12 linhas totalmente duplicadas na base analítica, reduzindo o conjunto de 10.012 para 10.000 registros.
+- Diagnóstico da qualidade dos dados, incluindo valores ausentes, duplicidades, consistência, validade e integridade dos identificadores.
+- Remoção e validação das duplicidades integrais na base de vendas, preservando os dados originais.
 
 ### Etapa em andamento
 
-**Tratamento e padronização dos dados:** definição e implementação de regras para valores ausentes, status das vendas, quantidades inválidas e demais inconsistências identificadas no diagnóstico.
+**Tratamento e padronização dos dados:** definição e aplicação de regras de tratamento para os problemas identificados no diagnóstico, começando pela investigação dos valores ausentes.
 
 ### Próximas etapas
 
-1. Definir as regras de tratamento dos valores ausentes.
-2. Padronizar status e categorias.
-3. Avaliar e tratar registros com quantidades iguais a zero.
-4. Validar a integridade e a consistência dos dados tratados.
-5. Integrar as tabelas.
-6. Calcular os indicadores comerciais.
-7. Realizar a análise exploratória.
-8. Elaborar conclusões e recomendações gerenciais.
-9. Automatizar a geração do relatório.
-## 10. Diagnóstico preliminar da qualidade dos dados
-
-A avaliação da qualidade dos dados foi realizada sobre os arquivos de vendas, produtos e vendedores, com o objetivo de identificar problemas que possam comprometer a confiabilidade dos indicadores comerciais.
+1. Investigar os valores ausentes e definir regras de tratamento.
+2. Tratar e padronizar as demais inconsistências.
+3. Validar a qualidade da base tratada.
+4. Integrar as tabelas de vendas, produtos e vendedores.
+5. Calcular os indicadores comerciais.
+6. Realizar a análise exploratória.
+7. Elaborar conclusões e recomendações gerenciais.
+8. Automatizar a geração do relatório.
 
 ## 10. Diagnóstico da qualidade dos dados
 
@@ -161,21 +156,17 @@ A avaliação da qualidade dos dados foi realizada sobre os arquivos de vendas, 
 
 ### 10.1. Valores ausentes e duplicidades
 
-A inspeção inicial identificou os seguintes problemas:
+A inspeção inicial identificou os seguintes problemas na tabela de vendas:
 
 | Verificação | Resultado |
 |---|---:|
-| Registros de vendas originais | 10.012 |
-| Linhas totalmente duplicadas identificadas | 12 |
-| Registros após remoção das duplicidades | 10.000 |
-| Duplicidades integrais restantes na base tratada | 0 |
+| Registros originais de vendas | 10.012 |
+| Linhas totalmente duplicadas | 12 |
 | Valores ausentes em `vendedor_id` | 10 |
 | Valores ausentes em `canal_venda` | 10 |
 | Valores ausentes em `desconto` | 15 |
 
 As tabelas de produtos e vendedores não apresentaram valores ausentes nem linhas totalmente duplicadas na inspeção inicial.
-
-As 12 linhas totalmente duplicadas foram removidas da base analítica utilizando `drop_duplicates()`. O DataFrame original foi preservado, e a base de trabalho passou a ser `df_vendas_tratadas`.
 
 ### 10.2. Consistência e validade
 
@@ -183,10 +174,11 @@ As verificações complementares apresentaram os seguintes resultados:
 
 | Verificação | Resultado |
 |---|---|
-| Quantidades iguais a zero ou negativas | 8 registros com quantidade zero foram apresentados na amostra |
+| Quantidades iguais a zero | 8 registros |
+| Quantidades negativas | Nenhum registro identificado |
 | Descontos fora do intervalo de 0 a 100% | Nenhum registro identificado |
 | Datas não interpretáveis | Nenhuma data identificada |
-| Formatos de data | 10.012 registros no formato `AAAA-MM-DD` |
+| Formato das datas | `AAAA-MM-DD` |
 | Status com grafia divergente | 10 registros |
 | Categorias com grafia divergente | 1 produto |
 | Vendas com produto sem cadastro correspondente | Nenhuma identificada |
@@ -200,14 +192,35 @@ Foram identificados 10.003 registros de vendas cujo `preco_unitario` difere do `
 
 Essa diferença não caracteriza, isoladamente, um erro. Os preços praticados podem refletir condições comerciais distintas do preço de referência. Por isso, não será realizada correção automática desses valores.
 
-A análise de margem estimada deverá considerar o preço praticado, o desconto, o custo do produto e o status da venda, conforme as regras de negócio que serão definidas durante o tratamento dos dados.
+A análise de margem estimada deverá considerar o preço praticado, o desconto, o custo do produto e o status da venda, conforme as regras de negócio definidas antes do cálculo.
 
 ### 10.4. Conclusão do diagnóstico
 
 O diagnóstico identificou problemas de completude, duplicidade, padronização e validade que precisam ser considerados antes do cálculo dos indicadores comerciais.
 
-O tratamento das duplicidades foi concluído e validado, com a remoção de 12 linhas integralmente duplicadas e a preservação dos dados originais.
+As verificações foram realizadas sem modificar os DataFrames originais. As regras de tratamento serão aplicadas de forma controlada e documentada.
 
-As regras para tratar valores ausentes, quantidades iguais a zero, status das vendas e demais inconsistências ainda serão definidas e documentadas antes da aplicação das correções.
+**Status:** diagnóstico da qualidade dos dados concluído.
 
-**Status:** diagnóstico da qualidade dos dados concluído. Tratamento e padronização dos dados em andamento.
+## 11. Tratamento e padronização dos dados
+
+O tratamento dos dados será realizado de forma incremental, preservando as fontes originais e validando cada transformação antes de prosseguir para a etapa seguinte.
+
+### 11.1. Tratamento de registros duplicados
+
+A inspeção identificou 12 linhas totalmente duplicadas na tabela de vendas. A regra adotada foi remover as repetições integrais da base de trabalho, preservando o DataFrame original `df_vendas`.
+
+Após o tratamento, os resultados foram:
+
+| Verificação | Resultado |
+|---|---:|
+| Registros originais | 10.012 |
+| Registros após tratamento | 10.000 |
+| Registros duplicados removidos | 12 |
+| Duplicidades integrais restantes | 0 |
+
+A base de trabalho passou a ser `df_vendas_tratadas`, enquanto `df_vendas` permanece disponível para consulta e auditoria.
+
+**Status:** tratamento de duplicidades concluído e validado.
+
+Os valores ausentes e as demais inconsistências ainda precisam ser investigados. Em particular, um desconto ausente não será considerado automaticamente igual a zero sem uma justificativa de negócio.

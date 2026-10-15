@@ -134,22 +134,23 @@ Abra o Jupyter Notebook e execute `notebooks/projeto_01_analise_vendas.ipynb` ut
 - Carregamento e inspeção inicial das fontes de dados.
 - Diagnóstico da qualidade dos dados, incluindo valores ausentes, duplicidades, consistência, validade e integridade dos identificadores.
 - Remoção e validação das duplicidades integrais na base de vendas, preservando os dados originais.
+- Investigação dos valores ausentes em `vendedor_id`, `canal_venda` e `desconto`.
 
 ### Etapa em andamento
 
-**Tratamento e padronização dos dados:** definição e aplicação de regras de tratamento para os problemas identificados no diagnóstico, começando pela investigação dos valores ausentes.
+**Definição das regras de tratamento:** avaliação das alternativas para lidar com os valores ausentes e demais inconsistências, considerando as evidências disponíveis e as regras de negócio.
 
 ### Próximas etapas
 
-1. Investigar os valores ausentes e definir regras de tratamento.
-2. Tratar e padronizar as demais inconsistências.
-3. Validar a qualidade da base tratada.
-4. Integrar as tabelas de vendas, produtos e vendedores.
-5. Calcular os indicadores comerciais.
-6. Realizar a análise exploratória.
-7. Elaborar conclusões e recomendações gerenciais.
-8. Automatizar a geração do relatório.
-
+1. Definir e documentar as regras de tratamento dos valores ausentes.
+2. Aplicar e validar as regras aprovadas.
+3. Tratar e padronizar as demais inconsistências.
+4. Validar a qualidade da base tratada.
+5. Integrar as tabelas de vendas, produtos e vendedores.
+6. Calcular os indicadores comerciais.
+7. Realizar a análise exploratória.
+8. Elaborar conclusões e recomendações gerenciais.
+9. Automatizar a geração do relatório.
 ## 10. Diagnóstico da qualidade dos dados
 
 A avaliação da qualidade dos dados foi realizada sobre os arquivos de vendas, produtos e vendedores, com o objetivo de identificar problemas que possam comprometer a confiabilidade dos indicadores comerciais.
@@ -222,3 +223,37 @@ A validação confirmou a remoção das 12 duplicidades integrais e a ausência 
 **Status:** tratamento de duplicidades concluído e validado.
 
 Os valores ausentes e as demais inconsistências ainda precisam ser investigados e tratados conforme regras de negócio explícitas. Em particular, valores ausentes em `desconto` não serão automaticamente substituídos por zero sem justificativa de negócio.
+
+### 11.2. Investigação dos valores ausentes
+
+A investigação foi realizada sobre a base de vendas após a remoção das duplicidades integrais, totalizando 10.000 registros.
+
+Os resultados identificaram os seguintes valores ausentes:
+
+| Coluna | Quantidade de valores ausentes | Percentual da base |
+|---|---:|---:|
+| `vendedor_id` | 10 | 0,10% |
+| `canal_venda` | 10 | 0,10% |
+| `desconto` | 15 | 0,15% |
+
+#### Identificadores de vendedores
+
+Os registros com `vendedor_id` ausente possuem outras informações comerciais preenchidas. Entretanto, a inspeção não apresentou evidências suficientes para identificar os vendedores correspondentes.
+
+Os valores serão preservados até que exista uma fonte confiável ou uma regra de negócio que permita recuperar os identificadores.
+
+#### Canais de venda
+
+Os registros com `canal_venda` ausente possuem outras informações comerciais preenchidas, mas não há evidência suficiente para determinar o canal original.
+
+Os valores serão preservados. Nas análises por canal, os registros deverão ser identificados separadamente como não informados, sem modificar o dado original.
+
+#### Descontos
+
+Os 15 registros com `desconto` ausente apresentam status `Concluída`. A comparação entre o preço praticado e o preço de referência não permite determinar o desconto original com segurança.
+
+Por esse motivo, os valores ausentes não serão automaticamente substituídos por zero nem por descontos estimados sem justificativa de negócio.
+
+Até a definição de uma regra específica, esses registros deverão ser identificados como casos com desconto desconhecido nos cálculos de receita líquida e margem estimada.
+
+**Status:** investigação dos valores ausentes concluída. A definição e a aplicação das regras de tratamento permanecem pendentes.

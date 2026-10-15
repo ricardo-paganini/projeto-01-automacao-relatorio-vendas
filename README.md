@@ -202,25 +202,23 @@ As verificações foram realizadas sem modificar os DataFrames originais. As reg
 
 **Status:** diagnóstico da qualidade dos dados concluído.
 
-## 11. Tratamento e padronização dos dados
-
-O tratamento dos dados será realizado de forma incremental, preservando as fontes originais e validando cada transformação antes de prosseguir para a etapa seguinte.
-
 ### 11.1. Tratamento de registros duplicados
 
-A inspeção identificou 12 linhas totalmente duplicadas na tabela de vendas. A regra adotada foi remover as repetições integrais da base de trabalho, preservando o DataFrame original `df_vendas`.
+A inspeção identificou 12 linhas totalmente duplicadas na tabela original de vendas.
 
-Após o tratamento, os resultados foram:
+A regra adotada foi remover apenas as duplicidades integrais da base de trabalho, mantendo o DataFrame original `df_vendas` disponível para auditoria.
+
+O tratamento foi realizado por meio da criação do DataFrame `df_vendas_tratadas`, sem alteração dos dados originais.
 
 | Verificação | Resultado |
 |---|---:|
 | Registros originais | 10.012 |
-| Registros após tratamento | 10.000 |
+| Registros após o tratamento | 10.000 |
 | Registros duplicados removidos | 12 |
 | Duplicidades integrais restantes | 0 |
 
-A base de trabalho passou a ser `df_vendas_tratadas`, enquanto `df_vendas` permanece disponível para consulta e auditoria.
+A validação confirmou a remoção das 12 duplicidades integrais e a ausência de duplicidades integrais na base resultante.
 
 **Status:** tratamento de duplicidades concluído e validado.
 
-Os valores ausentes e as demais inconsistências ainda precisam ser investigados. Em particular, um desconto ausente não será considerado automaticamente igual a zero sem uma justificativa de negócio.
+Os valores ausentes e as demais inconsistências ainda precisam ser investigados e tratados conforme regras de negócio explícitas. Em particular, valores ausentes em `desconto` não serão automaticamente substituídos por zero sem justificativa de negócio.

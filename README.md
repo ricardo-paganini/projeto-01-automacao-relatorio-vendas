@@ -132,24 +132,30 @@ Abra o Jupyter Notebook e execute `notebooks/projeto_01_analise_vendas.ipynb` ut
 - Criação e publicação do notebook principal.
 - Documentação da contextualização, do problema de negócio, dos objetivos e da metodologia.
 - Carregamento e inspeção inicial das fontes de dados.
-- Identificação inicial de valores ausentes, duplicidades e tipos de dados.
+- Conclusão do diagnóstico da qualidade dos dados.
+- Identificação de valores ausentes, duplicidades, inconsistências e valores inválidos.
+- Tratamento das 12 linhas totalmente duplicadas na base analítica, reduzindo o conjunto de 10.012 para 10.000 registros.
 
 ### Etapa em andamento
 
-**Avaliação da qualidade dos dados:** investigação de inconsistências, valores inválidos, padronização de categorias e status, integridade dos identificadores e coerência entre preços e custos.
+**Tratamento e padronização dos dados:** definição e implementação de regras para valores ausentes, status das vendas, quantidades inválidas e demais inconsistências identificadas no diagnóstico.
 
 ### Próximas etapas
 
-1. Concluir o diagnóstico da qualidade dos dados.
-2. Definir e documentar as regras de tratamento.
-3. Tratar e padronizar as informações.
-4. Integrar as tabelas.
-5. Calcular os indicadores comerciais.
-6. Realizar a análise exploratória.
-7. Elaborar conclusões e recomendações gerenciais.
-8. Automatizar a geração do relatório.
-
+1. Definir as regras de tratamento dos valores ausentes.
+2. Padronizar status e categorias.
+3. Avaliar e tratar registros com quantidades iguais a zero.
+4. Validar a integridade e a consistência dos dados tratados.
+5. Integrar as tabelas.
+6. Calcular os indicadores comerciais.
+7. Realizar a análise exploratória.
+8. Elaborar conclusões e recomendações gerenciais.
+9. Automatizar a geração do relatório.
 ## 10. Diagnóstico preliminar da qualidade dos dados
+
+A avaliação da qualidade dos dados foi realizada sobre os arquivos de vendas, produtos e vendedores, com o objetivo de identificar problemas que possam comprometer a confiabilidade dos indicadores comerciais.
+
+## 10. Diagnóstico da qualidade dos dados
 
 A avaliação da qualidade dos dados foi realizada sobre os arquivos de vendas, produtos e vendedores, com o objetivo de identificar problemas que possam comprometer a confiabilidade dos indicadores comerciais.
 
@@ -159,13 +165,17 @@ A inspeção inicial identificou os seguintes problemas:
 
 | Verificação | Resultado |
 |---|---:|
-| Registros de vendas | 10.012 |
-| Linhas totalmente duplicadas em vendas | 12 |
+| Registros de vendas originais | 10.012 |
+| Linhas totalmente duplicadas identificadas | 12 |
+| Registros após remoção das duplicidades | 10.000 |
+| Duplicidades integrais restantes na base tratada | 0 |
 | Valores ausentes em `vendedor_id` | 10 |
 | Valores ausentes em `canal_venda` | 10 |
 | Valores ausentes em `desconto` | 15 |
 
 As tabelas de produtos e vendedores não apresentaram valores ausentes nem linhas totalmente duplicadas na inspeção inicial.
+
+As 12 linhas totalmente duplicadas foram removidas da base analítica utilizando `drop_duplicates()`. O DataFrame original foi preservado, e a base de trabalho passou a ser `df_vendas_tratadas`.
 
 ### 10.2. Consistência e validade
 
@@ -190,12 +200,14 @@ Foram identificados 10.003 registros de vendas cujo `preco_unitario` difere do `
 
 Essa diferença não caracteriza, isoladamente, um erro. Os preços praticados podem refletir condições comerciais distintas do preço de referência. Por isso, não será realizada correção automática desses valores.
 
-A análise de margem estimada deverá considerar o preço praticado, o desconto, o custo do produto e o status da venda, conforme as regras de negócio que serão definidas na etapa de tratamento.
+A análise de margem estimada deverá considerar o preço praticado, o desconto, o custo do produto e o status da venda, conforme as regras de negócio que serão definidas durante o tratamento dos dados.
 
 ### 10.4. Conclusão do diagnóstico
 
 O diagnóstico identificou problemas de completude, duplicidade, padronização e validade que precisam ser considerados antes do cálculo dos indicadores comerciais.
 
-Os resultados foram registrados sem modificar os dados originais. As regras para tratar valores ausentes, duplicidades, quantidades iguais a zero e status das vendas serão definidas na próxima etapa, com critérios explícitos e rastreáveis.
+O tratamento das duplicidades foi concluído e validado, com a remoção de 12 linhas integralmente duplicadas e a preservação dos dados originais.
 
-**Status:** diagnóstico da qualidade dos dados concluído. Tratamento e padronização dos dados pendentes.
+As regras para tratar valores ausentes, quantidades iguais a zero, status das vendas e demais inconsistências ainda serão definidas e documentadas antes da aplicação das correções.
+
+**Status:** diagnóstico da qualidade dos dados concluído. Tratamento e padronização dos dados em andamento.

@@ -151,20 +151,51 @@ Abra o Jupyter Notebook e execute `notebooks/projeto_01_analise_vendas.ipynb` ut
 
 ## 10. Diagnóstico preliminar da qualidade dos dados
 
-A inspeção inicial da tabela de vendas identificou:
+A avaliação da qualidade dos dados foi realizada sobre os arquivos de vendas, produtos e vendedores, com o objetivo de identificar problemas que possam comprometer a confiabilidade dos indicadores comerciais.
+
+### 10.1. Valores ausentes e duplicidades
+
+A inspeção inicial identificou os seguintes problemas:
 
 | Verificação | Resultado |
 |---|---:|
 | Registros de vendas | 10.012 |
-| Linhas totalmente duplicadas | 12 |
+| Linhas totalmente duplicadas em vendas | 12 |
 | Valores ausentes em `vendedor_id` | 10 |
 | Valores ausentes em `canal_venda` | 10 |
 | Valores ausentes em `desconto` | 15 |
 
 As tabelas de produtos e vendedores não apresentaram valores ausentes nem linhas totalmente duplicadas na inspeção inicial.
 
-Esses resultados são preliminares. A investigação de consistência e validade ainda está em andamento, e as regras de tratamento serão definidas após a conclusão do diagnóstico.
+### 10.2. Consistência e validade
 
-## 11. Status
+As verificações complementares apresentaram os seguintes resultados:
 
-**Em desenvolvimento.**
+| Verificação | Resultado |
+|---|---|
+| Quantidades iguais a zero ou negativas | 8 registros com quantidade zero foram apresentados na amostra |
+| Descontos fora do intervalo de 0 a 100% | Nenhum registro identificado |
+| Datas não interpretáveis | Nenhuma data identificada |
+| Formatos de data | 10.012 registros no formato `AAAA-MM-DD` |
+| Status com grafia divergente | 10 registros |
+| Categorias com grafia divergente | 1 produto |
+| Vendas com produto sem cadastro correspondente | Nenhuma identificada |
+| Vendas com vendedor sem cadastro correspondente | Nenhuma identificada entre os identificadores não nulos |
+
+As divergências de status envolvem variações de capitalização e acentuação. Na tabela de produtos, foi identificada a categoria `Eletronicos`, que difere da grafia `Eletrônicos`.
+
+### 10.3. Coerência dos preços
+
+Foram identificados 10.003 registros de vendas cujo `preco_unitario` difere do `preco_base` cadastrado para o produto.
+
+Essa diferença não caracteriza, isoladamente, um erro. Os preços praticados podem refletir condições comerciais distintas do preço de referência. Por isso, não será realizada correção automática desses valores.
+
+A análise de margem estimada deverá considerar o preço praticado, o desconto, o custo do produto e o status da venda, conforme as regras de negócio que serão definidas na etapa de tratamento.
+
+### 10.4. Conclusão do diagnóstico
+
+O diagnóstico identificou problemas de completude, duplicidade, padronização e validade que precisam ser considerados antes do cálculo dos indicadores comerciais.
+
+Os resultados foram registrados sem modificar os dados originais. As regras para tratar valores ausentes, duplicidades, quantidades iguais a zero e status das vendas serão definidas na próxima etapa, com critérios explícitos e rastreáveis.
+
+**Status:** diagnóstico da qualidade dos dados concluído. Tratamento e padronização dos dados pendentes.

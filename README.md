@@ -30,6 +30,34 @@ As informações comerciais estão armazenadas em arquivos separados e apresenta
 
 O projeto utiliza dados simulados para fins educacionais e de portfólio. Não contempla modelos preditivos, machine learning ou integrações com sistemas externos nesta versão.
 
+### 4.1. Critérios de sucesso do projeto
+
+A fase de Entendimento do Negócio, conforme a metodologia CRISP-DM, estabeleceu os seguintes critérios de sucesso:
+
+1. **Confiabilidade dos dados:** identificar, documentar e tratar inconsistências relevantes, preservando os arquivos originais.
+2. **Integração das fontes:** consolidar os dados de vendas, produtos e vendedores, verificando a integridade dos relacionamentos.
+3. **Indicadores comerciais:** calcular faturamento, evolução mensal, desempenho por produto, categoria, canal, vendedor e região.
+4. **Descontos:** avaliar o impacto dos descontos sobre a receita, considerando as regras de negócio definidas.
+5. **Margem estimada:** calcular a margem com base no preço efetivamente praticado, nos descontos aplicados e nos custos cadastrados dos produtos.
+6. **Validação:** conferir os cálculos e documentar as regras utilizadas para inclusão ou exclusão de registros.
+7. **Automação:** desenvolver um processo reproduzível para gerar relatórios gerenciais a partir dos arquivos de entrada.
+8. **Documentação e versionamento:** manter o README.md atualizado e registrar cada etapa no Git e GitHub.
+
+### 4.2. Regras de negócio a definir
+
+Antes do cálculo dos indicadores, deverão ser estabelecidas e documentadas as seguintes regras:
+
+- Quais status de venda serão considerados no faturamento.
+- Como tratar vendas canceladas, devolvidas ou com informações inconsistentes.
+- Como interpretar o campo `desconto` e aplicá-lo aos cálculos.
+- Como tratar quantidades iguais a zero.
+- Como lidar com valores ausentes e registros duplicados.
+- Como calcular o custo total e a margem estimada.
+
+Essas definições serão validadas durante as etapas de entendimento e preparação dos dados, antes da geração dos indicadores definitivos.
+
+**Status da fase CRISP-DM:** Entendimento do Negócio — escopo e critérios de sucesso aprovados.
+
 ## 5. Tecnologias
 
 - Python 3.14.5
@@ -99,6 +127,18 @@ O projeto foi desenvolvido no Windows 11, utilizando Python 3.14.5, gerenciado p
 
 O diretório `.venv/` não é versionado no Git.
 
+### Validação do ambiente
+
+Em 17/10/2026, o ambiente virtual foi validado no Windows PowerShell.
+
+- **Python:** 3.14.5
+- **Pandas:** 3.0.6
+- **Dependências:** instaladas conforme o arquivo `requirements.txt`.
+- **Integridade:** `python -m pip check` executado sem dependências quebradas.
+- **Reprodutibilidade:** a saída de `python -m pip freeze` corresponde às dependências declaradas em `requirements.txt`.
+
+O ambiente está preparado para iniciar o desenvolvimento analítico do projeto.
+
 ### Instalação e execução
 
 Clone o repositório:
@@ -132,37 +172,35 @@ Abra o Jupyter Notebook e execute `notebooks/projeto_01_analise_vendas.ipynb` ut
 - Criação e publicação do notebook principal.
 - Documentação da contextualização, do problema de negócio, dos objetivos e da metodologia.
 - Carregamento e inspeção inicial das fontes de dados.
-- Diagnóstico da qualidade dos dados, incluindo valores ausentes, duplicidades, consistência, validade e integridade dos identificadores.
-- Remoção e validação das duplicidades integrais na base de vendas, preservando os dados originais.
-- Investigação dos valores ausentes em `vendedor_id`, `canal_venda` e `desconto`.
+- Identificação inicial de valores ausentes, duplicidades e tipos de dados.
 
 ### Etapa em andamento
 
-**Definição das regras de tratamento:** avaliação das alternativas para lidar com os valores ausentes e demais inconsistências, considerando as evidências disponíveis e as regras de negócio.
+**Entendimento do Negócio:** escopo, perguntas de negócio e critérios de sucesso definidos. As regras de negócio para o cálculo dos indicadores ainda precisam ser validadas.
 
 ### Próximas etapas
 
-1. Definir e documentar as regras de tratamento dos valores ausentes.
-2. Aplicar e validar as regras aprovadas.
-3. Tratar e padronizar as demais inconsistências.
-4. Validar a qualidade da base tratada.
-5. Integrar as tabelas de vendas, produtos e vendedores.
-6. Calcular os indicadores comerciais.
-7. Realizar a análise exploratória.
-8. Elaborar conclusões e recomendações gerenciais.
-9. Automatizar a geração do relatório.
-## 10. Diagnóstico da qualidade dos dados
+1. Concluir o entendimento e o diagnóstico dos dados.
+2. Definir e documentar as regras de tratamento.
+3. Tratar e padronizar as informações.
+4. Integrar as tabelas.
+5. Calcular os indicadores comerciais.
+6. Realizar a análise exploratória.
+7. Elaborar conclusões e recomendações gerenciais.
+8. Automatizar a geração do relatório.
+
+## 10. Diagnóstico preliminar da qualidade dos dados
 
 A avaliação da qualidade dos dados foi realizada sobre os arquivos de vendas, produtos e vendedores, com o objetivo de identificar problemas que possam comprometer a confiabilidade dos indicadores comerciais.
 
 ### 10.1. Valores ausentes e duplicidades
 
-A inspeção inicial identificou os seguintes problemas na tabela de vendas:
+A inspeção inicial identificou os seguintes problemas:
 
 | Verificação | Resultado |
 |---|---:|
-| Registros originais de vendas | 10.012 |
-| Linhas totalmente duplicadas | 12 |
+| Registros de vendas | 10.012 |
+| Linhas totalmente duplicadas em vendas | 12 |
 | Valores ausentes em `vendedor_id` | 10 |
 | Valores ausentes em `canal_venda` | 10 |
 | Valores ausentes em `desconto` | 15 |
@@ -175,11 +213,10 @@ As verificações complementares apresentaram os seguintes resultados:
 
 | Verificação | Resultado |
 |---|---|
-| Quantidades iguais a zero | 8 registros |
-| Quantidades negativas | Nenhum registro identificado |
+| Quantidades iguais a zero ou negativas | 8 registros com quantidade zero foram apresentados na amostra |
 | Descontos fora do intervalo de 0 a 100% | Nenhum registro identificado |
 | Datas não interpretáveis | Nenhuma data identificada |
-| Formato das datas | `AAAA-MM-DD` |
+| Formatos de data | 10.012 registros no formato `AAAA-MM-DD` |
 | Status com grafia divergente | 10 registros |
 | Categorias com grafia divergente | 1 produto |
 | Vendas com produto sem cadastro correspondente | Nenhuma identificada |
@@ -193,67 +230,12 @@ Foram identificados 10.003 registros de vendas cujo `preco_unitario` difere do `
 
 Essa diferença não caracteriza, isoladamente, um erro. Os preços praticados podem refletir condições comerciais distintas do preço de referência. Por isso, não será realizada correção automática desses valores.
 
-A análise de margem estimada deverá considerar o preço praticado, o desconto, o custo do produto e o status da venda, conforme as regras de negócio definidas antes do cálculo.
+A análise de margem estimada deverá considerar o preço praticado, o desconto, o custo do produto e o status da venda, conforme as regras de negócio que serão definidas na etapa de tratamento.
 
 ### 10.4. Conclusão do diagnóstico
 
 O diagnóstico identificou problemas de completude, duplicidade, padronização e validade que precisam ser considerados antes do cálculo dos indicadores comerciais.
 
-As verificações foram realizadas sem modificar os DataFrames originais. As regras de tratamento serão aplicadas de forma controlada e documentada.
+Os resultados foram registrados sem modificar os dados originais. As regras para tratar valores ausentes, duplicidades, quantidades iguais a zero e status das vendas serão definidas na próxima etapa, com critérios explícitos e rastreáveis.
 
-**Status:** diagnóstico da qualidade dos dados concluído.
-
-### 11.1. Tratamento de registros duplicados
-
-A inspeção identificou 12 linhas totalmente duplicadas na tabela original de vendas.
-
-A regra adotada foi remover apenas as duplicidades integrais da base de trabalho, mantendo o DataFrame original `df_vendas` disponível para auditoria.
-
-O tratamento foi realizado por meio da criação do DataFrame `df_vendas_tratadas`, sem alteração dos dados originais.
-
-| Verificação | Resultado |
-|---|---:|
-| Registros originais | 10.012 |
-| Registros após o tratamento | 10.000 |
-| Registros duplicados removidos | 12 |
-| Duplicidades integrais restantes | 0 |
-
-A validação confirmou a remoção das 12 duplicidades integrais e a ausência de duplicidades integrais na base resultante.
-
-**Status:** tratamento de duplicidades concluído e validado.
-
-Os valores ausentes e as demais inconsistências ainda precisam ser investigados e tratados conforme regras de negócio explícitas. Em particular, valores ausentes em `desconto` não serão automaticamente substituídos por zero sem justificativa de negócio.
-
-### 11.2. Investigação dos valores ausentes
-
-A investigação foi realizada sobre a base de vendas após a remoção das duplicidades integrais, totalizando 10.000 registros.
-
-Os resultados identificaram os seguintes valores ausentes:
-
-| Coluna | Quantidade de valores ausentes | Percentual da base |
-|---|---:|---:|
-| `vendedor_id` | 10 | 0,10% |
-| `canal_venda` | 10 | 0,10% |
-| `desconto` | 15 | 0,15% |
-
-#### Identificadores de vendedores
-
-Os registros com `vendedor_id` ausente possuem outras informações comerciais preenchidas. Entretanto, a inspeção não apresentou evidências suficientes para identificar os vendedores correspondentes.
-
-Os valores serão preservados até que exista uma fonte confiável ou uma regra de negócio que permita recuperar os identificadores.
-
-#### Canais de venda
-
-Os registros com `canal_venda` ausente possuem outras informações comerciais preenchidas, mas não há evidência suficiente para determinar o canal original.
-
-Os valores serão preservados. Nas análises por canal, os registros deverão ser identificados separadamente como não informados, sem modificar o dado original.
-
-#### Descontos
-
-Os 15 registros com `desconto` ausente apresentam status `Concluída`. A comparação entre o preço praticado e o preço de referência não permite determinar o desconto original com segurança.
-
-Por esse motivo, os valores ausentes não serão automaticamente substituídos por zero nem por descontos estimados sem justificativa de negócio.
-
-Até a definição de uma regra específica, esses registros deverão ser identificados como casos com desconto desconhecido nos cálculos de receita líquida e margem estimada.
-
-**Status:** investigação dos valores ausentes concluída. A definição e a aplicação das regras de tratamento permanecem pendentes.
+**Status:** diagnóstico da qualidade dos dados concluído. Tratamento e padronização dos dados pendentes.

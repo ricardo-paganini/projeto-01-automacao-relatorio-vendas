@@ -1,81 +1,85 @@
-# Projeto 01 — Automação e Análise de Dados de Vendas
+# Projeto 01 — Retail Sales Analytics Platform
 
 ## 1. Objetivo
 
-Desenvolver uma solução em Python para automatizar o carregamento, a validação, o tratamento, a consolidação e a análise de dados comerciais, gerando indicadores e relatórios para apoiar a tomada de decisão gerencial.
+Desenvolver uma plataforma analítica de vendas que integre engenharia e análise de dados, desde a ingestão e validação dos arquivos de origem até a disponibilização de indicadores comerciais em dashboards interativos no Databricks.
+
+O projeto tem como objetivo demonstrar competências em Python, SQL, PySpark, Databricks, qualidade de dados, análise de indicadores, documentação técnica e versionamento com Git e GitHub.
 
 ## 2. Contextualização e problema de negócio
 
 Este projeto simula uma empresa varejista que comercializa diferentes produtos por múltiplos canais de venda e conta com vendedores distribuídos por regiões.
 
-As informações comerciais estão armazenadas em arquivos separados e apresentam problemas de qualidade que precisam ser identificados antes da geração de indicadores confiáveis.
+As informações comerciais estão organizadas em arquivos que precisam ser consolidados, validados e preparados para gerar indicadores confiáveis.
 
-**Problema de negócio:** como automatizar a consolidação dos dados de vendas e identificar os principais fatores que influenciam o desempenho comercial da empresa?
+Problemas como duplicidades, valores ausentes, inconsistências de preenchimento e regras de cálculo inadequadas podem comprometer a qualidade das análises e prejudicar a tomada de decisão.
+
+**Problema de negócio:** como transformar dados comerciais brutos em informações confiáveis, utilizando um processo reproduzível de engenharia e análise de dados, para compreender o desempenho das vendas e apoiar decisões gerenciais?
+
+A solução proposta utilizará o Databricks para processamento, armazenamento, consultas SQL, visualização e compartilhamento dos resultados.
+
+A base de dados é fictícia e foi desenvolvida para fins educacionais e de portfólio. Portanto, as análises representarão um cenário simulado, e não o desempenho de uma empresa real.
 
 ## 3. Perguntas de negócio
 
-- Como o faturamento evoluiu ao longo do período analisado?
-- Quais produtos e categorias geraram maior receita?
-- Quais canais de venda apresentaram melhor desempenho?
-- Quais vendedores obtiveram os melhores resultados?
-- Quais regiões concentraram o maior volume de vendas?
-- Qual foi o impacto dos descontos sobre a receita?
-- Qual é a margem estimada das vendas, considerando os custos dos produtos?
+O projeto deverá responder às seguintes perguntas:
+
+- Como o faturamento evolui ao longo do período analisado?
+- Quais produtos e categorias concentram o maior faturamento?
+- Quais canais de venda apresentam maior participação nas vendas?
+- Como o desempenho comercial se distribui entre os vendedores?
+- Quais regiões apresentam maior volume de vendas?
+- Qual é o impacto dos descontos sobre a receita?
+- É possível calcular lucro e margem de forma confiável com os dados disponíveis?
+- Quais problemas de qualidade podem comprometer os indicadores?
+- Como estruturar um pipeline reproduzível para disponibilizar os dados para análise?
+- Como disponibilizar e compartilhar dashboards interativos no Databricks?
+
+As respostas dependerão da estrutura da base, das regras de negócio e da validação dos resultados.
 
 ## 4. Escopo
 
-- **Período:** janeiro a dezembro de 2025.
-- **Fontes:** vendas, produtos e vendedores.
-- **Atividades:** inspeção, validação, tratamento e integração dos dados; cálculo de indicadores; análise exploratória; elaboração de conclusões gerenciais; automação de relatórios.
+- **Segmento:** varejo.
+- **Período dos dados:** janeiro a dezembro de 2025, conforme a base recebida.
+- **Fonte principal:** arquivo fictício `dados_projeto_01.xlsx`.
+- **Planilhas:** vendas, produtos e vendedores.
+- **Processamento:** Python, pandas, PySpark e Databricks.
+- **Armazenamento:** camadas Bronze, Silver e Gold.
+- **Análise:** consultas SQL e indicadores comerciais.
+- **Visualização:** dashboards nativos do Databricks.
+- **Versionamento:** Git e GitHub.
+- **Documentação:** Jupyter Notebook e README.md.
 
-O projeto utiliza dados simulados para fins educacionais e de portfólio. Não contempla modelos preditivos, machine learning ou integrações com sistemas externos nesta versão.
+O escopo inclui a inspeção da estrutura, a validação da qualidade, a definição de regras de tratamento, a integração das tabelas, o cálculo de indicadores e a construção de dashboards para análise do desempenho comercial.
 
-### 4.1. Critérios de sucesso do projeto
+O compartilhamento dos dashboards será realizado conforme os recursos e as permissões disponíveis no workspace do Databricks.
 
-A fase de Entendimento do Negócio, conforme a metodologia CRISP-DM, estabeleceu os seguintes critérios de sucesso:
-
-1. **Confiabilidade dos dados:** identificar, documentar e tratar inconsistências relevantes, preservando os arquivos originais.
-2. **Integração das fontes:** consolidar os dados de vendas, produtos e vendedores, verificando a integridade dos relacionamentos.
-3. **Indicadores comerciais:** calcular faturamento, evolução mensal, desempenho por produto, categoria, canal, vendedor e região.
-4. **Descontos:** avaliar o impacto dos descontos sobre a receita, considerando as regras de negócio definidas.
-5. **Margem estimada:** calcular a margem com base no preço efetivamente praticado, nos descontos aplicados e nos custos cadastrados dos produtos.
-6. **Validação:** conferir os cálculos e documentar as regras utilizadas para inclusão ou exclusão de registros.
-7. **Automação:** desenvolver um processo reproduzível para gerar relatórios gerenciais a partir dos arquivos de entrada.
-8. **Documentação e versionamento:** manter o README.md atualizado e registrar cada etapa no Git e GitHub.
-
-### 4.2. Regras de negócio a definir
-
-Antes do cálculo dos indicadores, deverão ser estabelecidas e documentadas as seguintes regras:
-
-- Quais status de venda serão considerados no faturamento.
-- Como tratar vendas canceladas, devolvidas ou com informações inconsistentes.
-- Como interpretar o campo `desconto` e aplicá-lo aos cálculos.
-- Como tratar quantidades iguais a zero.
-- Como lidar com valores ausentes e registros duplicados.
-- Como calcular o custo total e a margem estimada.
-
-Essas definições serão validadas durante as etapas de entendimento e preparação dos dados, antes da geração dos indicadores definitivos.
-
-**Status da fase CRISP-DM:** Entendimento do Negócio — escopo e critérios de sucesso aprovados.
+Não fazem parte do escopo inicial o desenvolvimento de modelos preditivos, machine learning, processamento em streaming ou infraestrutura complexa de produção.
 
 ## 5. Tecnologias
 
-- Python 3.14.5
-- Pandas
-- NumPy
-- OpenPyXL
-- Matplotlib
-- Jupyter Notebook
-- Git e GitHub
+| Tecnologia | Finalidade |
+|---|---|
+| Python | Análise exploratória, validações e automação |
+| pandas | Leitura e análise inicial dos arquivos |
+| PySpark | Transformação e processamento de dados |
+| Databricks | Ambiente de engenharia, análise e armazenamento |
+| SQL | Consultas analíticas e cálculo de indicadores |
+| Databricks AI/BI Dashboards | Visualização e compartilhamento dos resultados |
+| Jupyter Notebook | Registro das análises e evidências |
+| Git | Controle de versão |
+| GitHub | Hospedagem do código e documentação |
+
+A utilização efetiva dos recursos do Databricks dependerá da configuração e das permissões disponíveis no workspace.
 
 ## 6. Estrutura do projeto
+
+A estrutura será organizada progressivamente, preservando os arquivos existentes e incorporando novos componentes conforme a necessidade.
 
 ```text
 projeto-01-automacao-relatorio-vendas/
 ├── dados/
-│   ├── vendas.csv
-│   ├── produtos.csv
-│   └── vendedores.csv
+│   └── dados_projeto_01.xlsx
 ├── notebooks/
 │   └── projeto_01_analise_vendas.ipynb
 ├── .gitignore
@@ -83,13 +87,18 @@ projeto-01-automacao-relatorio-vendas/
 └── README.md
 ```
 
-A estrutura representa os arquivos previstos para o repositório atual. Novos diretórios poderão ser adicionados conforme a evolução do projeto.
+A estrutura apresentada é a organização prevista para o projeto. Os caminhos e diretórios deverão ser conferidos com a estrutura efetivamente existente no repositório antes de serem considerados definitivos.
+
+Novos diretórios poderão ser adicionados para organizar scripts, consultas SQL, configurações e documentação técnica, caso sejam necessários.
 
 ## 7. Fontes de dados
 
-### Vendas — `vendas.csv`
+### 7.1. Vendas
 
-Contém os registros das operações comerciais, com as seguintes colunas:
+**Arquivo de origem:** `dados_projeto_01.xlsx`  
+**Planilha:** `vendas`
+
+Contém os registros das operações comerciais, com campos relacionados a:
 
 - `pedido_id`
 - `data_venda`
@@ -102,9 +111,14 @@ Contém os registros das operações comerciais, com as seguintes colunas:
 - `canal_venda`
 - `status`
 
-### Produtos — `produtos.csv`
+A estrutura definitiva, os tipos de dados e a granularidade serão documentados durante a etapa de entendimento dos dados.
 
-Contém o cadastro dos produtos:
+### 7.2. Produtos
+
+**Arquivo de origem:** `dados_projeto_01.xlsx`  
+**Planilha:** `produtos`
+
+Contém informações cadastrais dos produtos, incluindo:
 
 - `produto_id`
 - `produto`
@@ -113,31 +127,26 @@ Contém o cadastro dos produtos:
 - `custo`
 - `preco_base`
 
-### Vendedores — `vendedores.csv`
+Esses campos poderão apoiar análises por produto e categoria, além de cálculos de rentabilidade, desde que as regras de negócio sejam devidamente estabelecidas.
 
-Contém o cadastro dos vendedores:
+### 7.3. Vendedores
+
+**Arquivo de origem:** `dados_projeto_01.xlsx`  
+**Planilha:** `vendedores`
+
+Contém informações cadastrais dos vendedores, incluindo:
 
 - `vendedor_id`
 - `vendedor`
 - `regiao`
 
+Os relacionamentos com a tabela de vendas serão verificados antes da integração dos dados.
+
 ## 8. Ambiente de desenvolvimento
 
-O projeto foi desenvolvido no Windows 11, utilizando Python 3.14.5, gerenciado pelo `pyenv-win`, e um ambiente virtual isolado em `.venv/`.
+O desenvolvimento local utiliza Windows, Python e um ambiente virtual isolado em `.venv/`.
 
-O diretório `.venv/` não é versionado no Git.
-
-### Validação do ambiente
-
-Em 17/10/2026, o ambiente virtual foi validado no Windows PowerShell.
-
-- **Python:** 3.14.5
-- **Pandas:** 3.0.6
-- **Dependências:** instaladas conforme o arquivo `requirements.txt`.
-- **Integridade:** `python -m pip check` executado sem dependências quebradas.
-- **Reprodutibilidade:** a saída de `python -m pip freeze` corresponde às dependências declaradas em `requirements.txt`.
-
-O ambiente está preparado para iniciar o desenvolvimento analítico do projeto.
+O ambiente virtual deve ser mantido fora do versionamento do Git.
 
 ### Instalação e execução
 
@@ -148,95 +157,88 @@ git clone https://github.com/ricardo-paganini/projeto-01-automacao-relatorio-ven
 cd projeto-01-automacao-relatorio-vendas
 ```
 
-Crie e ative o ambiente virtual:
+Crie e ative o ambiente virtual, caso ainda não exista:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-Instale as dependências:
+Instale as dependências registradas no projeto:
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-Abra o Jupyter Notebook e execute `notebooks/projeto_01_analise_vendas.ipynb` utilizando o ambiente Python do projeto.
+Abra o notebook `projeto_01_analise_vendas.ipynb` no VS Code ou Jupyter Notebook, utilizando o interpretador Python do ambiente virtual.
+
+A preparação e o processamento dos dados no Databricks serão realizados no workspace configurado para o projeto. O ambiente local e o workspace Databricks são componentes distintos e deverão ser configurados conforme a necessidade de cada etapa.
 
 ## 9. Progresso do projeto
 
-### Etapas concluídas
+O projeto seguirá a metodologia CRISP-DM, com execução e validação de cada fase antes do avanço para a próxima.
 
-- Configuração do ambiente Python e do ambiente virtual.
-- Preparação e versionamento dos arquivos CSV.
-- Criação e publicação do notebook principal.
-- Documentação da contextualização, do problema de negócio, dos objetivos e da metodologia.
-- Carregamento e inspeção inicial das fontes de dados.
-- Identificação inicial de valores ausentes, duplicidades e tipos de dados.
-- Documentação das perguntas de negócio no notebook principal.
+### Etapa 1 — Entendimento do negócio
 
-### Etapa em andamento
+**Objetivo:** definir o contexto, o problema, os objetivos, as perguntas analíticas, os indicadores previstos e o escopo técnico.
 
-**Entendimento do Negócio:** escopo, perguntas de negócio e critérios de sucesso definidos. As regras de negócio para o cálculo dos indicadores ainda precisam ser validadas.
+**Situação:** escopo aprovado. A documentação revisada deverá ser inserida no notebook e no README, validada e publicada no GitHub.
 
-### Próximas etapas
+### Etapa 2 — Entendimento dos dados
 
-1. Concluir o entendimento e o diagnóstico dos dados.
-2. Definir e documentar as regras de tratamento.
-3. Tratar e padronizar as informações.
-4. Integrar as tabelas.
-5. Calcular os indicadores comerciais.
-6. Realizar a análise exploratória.
-7. Elaborar conclusões e recomendações gerenciais.
-8. Automatizar a geração do relatório.
+**Objetivo:** investigar a estrutura, a granularidade, os relacionamentos, os tipos de dados e os problemas de qualidade.
 
-## 10. Diagnóstico preliminar da qualidade dos dados
+**Situação:** aguardando a conclusão formal da Etapa 1.
 
-A avaliação da qualidade dos dados foi realizada sobre os arquivos de vendas, produtos e vendedores, com o objetivo de identificar problemas que possam comprometer a confiabilidade dos indicadores comerciais.
+### Etapa 3 — Preparação dos dados
 
-### 10.1. Valores ausentes e duplicidades
+**Objetivo:** definir e aplicar regras justificadas para tratar inconsistências e preparar as tabelas para análise.
 
-A inspeção inicial identificou os seguintes problemas:
+**Situação:** não iniciada nesta sequência de trabalho.
 
-| Verificação | Resultado |
-|---|---:|
-| Registros de vendas | 10.012 |
-| Linhas totalmente duplicadas em vendas | 12 |
-| Valores ausentes em `vendedor_id` | 10 |
-| Valores ausentes em `canal_venda` | 10 |
-| Valores ausentes em `desconto` | 15 |
+### Etapa 4 — Modelagem
 
-As tabelas de produtos e vendedores não apresentaram valores ausentes nem linhas totalmente duplicadas na inspeção inicial.
+**Objetivo:** construir o pipeline de dados, organizar as camadas Bronze, Silver e Gold e desenvolver as consultas analíticas.
 
-### 10.2. Consistência e validade
+**Situação:** não iniciada nesta sequência de trabalho.
 
-As verificações complementares apresentaram os seguintes resultados:
+### Etapa 5 — Avaliação
 
-| Verificação | Resultado |
-|---|---|
-| Quantidades iguais a zero ou negativas | 8 registros com quantidade zero foram apresentados na amostra |
-| Descontos fora do intervalo de 0 a 100% | Nenhum registro identificado |
-| Datas não interpretáveis | Nenhuma data identificada |
-| Formatos de data | 10.012 registros no formato `AAAA-MM-DD` |
-| Status com grafia divergente | 10 registros |
-| Categorias com grafia divergente | 1 produto |
-| Vendas com produto sem cadastro correspondente | Nenhuma identificada |
-| Vendas com vendedor sem cadastro correspondente | Nenhuma identificada entre os identificadores não nulos |
+**Objetivo:** validar as transformações, os relacionamentos, os indicadores e a consistência dos resultados.
 
-As divergências de status envolvem variações de capitalização e acentuação. Na tabela de produtos, foi identificada a categoria `Eletronicos`, que difere da grafia `Eletrônicos`.
+**Situação:** não iniciada nesta sequência de trabalho.
 
-### 10.3. Coerência dos preços
+### Etapa 6 — Implantação
 
-Foram identificados 10.003 registros de vendas cujo `preco_unitario` difere do `preco_base` cadastrado para o produto.
+**Objetivo:** publicar os dashboards no Databricks, validar o compartilhamento, finalizar a documentação e verificar o repositório.
 
-Essa diferença não caracteriza, isoladamente, um erro. Os preços praticados podem refletir condições comerciais distintas do preço de referência. Por isso, não será realizada correção automática desses valores.
+**Situação:** não iniciada nesta sequência de trabalho.
 
-A análise de margem estimada deverá considerar o preço praticado, o desconto, o custo do produto e o status da venda, conforme as regras de negócio que serão definidas na etapa de tratamento.
+## 10. Critérios de sucesso e qualidade
 
-### 10.4. Conclusão do diagnóstico
+O projeto será considerado concluído quando:
 
-O diagnóstico identificou problemas de completude, duplicidade, padronização e validade que precisam ser considerados antes do cálculo dos indicadores comerciais.
+1. A origem, a estrutura e a granularidade dos dados estiverem documentadas.
+2. Os problemas de qualidade forem identificados e tratados com regras justificadas.
+3. Os relacionamentos entre as tabelas forem verificados.
+4. As transformações forem reproduzíveis e acompanhadas de testes.
+5. As camadas Bronze, Silver e Gold estiverem funcionais e documentadas.
+6. Os indicadores comerciais apresentarem cálculos consistentes e verificáveis.
+7. Os dashboards responderem às perguntas de negócio definidas.
+8. As visualizações e os filtros forem testados.
+9. O compartilhamento dos dashboards for validado conforme as permissões disponíveis.
+10. As limitações dos dados fictícios estiverem documentadas.
+11. O README refletir o estado real do projeto.
+12. As alterações estiverem versionadas e a publicação no GitHub estiver verificada.
 
-Os resultados foram registrados sem modificar os dados originais. As regras para tratar valores ausentes, duplicidades, quantidades iguais a zero e status das vendas serão definidas na próxima etapa, com critérios explícitos e rastreáveis.
+Nenhuma atividade será considerada concluída apenas porque o código foi escrito. A conclusão dependerá da execução, da validação e do registro das evidências correspondentes.
 
-**Status:** diagnóstico da qualidade dos dados concluído. Tratamento e padronização dos dados pendentes.
+### Premissas e limitações
+
+- Os dados utilizados são fictícios.
+- Os resultados não representam uma empresa real.
+- As regras de negócio deverão ser confirmadas durante a análise.
+- A existência de custos e preços de referência não garante, por si só, que seja possível calcular lucro e margem de forma confiável.
+- Nenhuma correção será aplicada sem justificativa e validação.
+- A disponibilidade de recursos de processamento, armazenamento e compartilhamento dependerá do workspace Databricks.
+- O estado das etapas deverá ser atualizado conforme as atividades forem efetivamente executadas e validadas.

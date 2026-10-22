@@ -108,11 +108,8 @@ A implementação de cada camada dependerá dos recursos de armazenamento e cat�
 ```text
 projeto-01-automacao-relatorio-vendas/
 ├── README.md
-├── notebooks/
-│   ├── 01_ingestao_bronze.py
-│   ├── 02_qualidade_silver.py
-│   ├── 03_modelagem_gold.py
-│   └── 04_analise_sql.py
+├── notebook/
+│   ├── projeto_01_analise_vendas
 └── docs/
     ├── arquitetura.md
     └── dashboards.md
